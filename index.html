@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Imperial Engineering & Development Corporation — Steel Structure, Engineering & Development services in Saudi Arabia." />
+  <title>IEDC — Imperial Engineering & Development Corporation</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="apple-touch-icon" href="images/logo.png" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts: Poppins (EN) + Cairo (AR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = { theme: { fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] } } };
+  </script>
+
+  <style>
+    :root {
+      --navy-950: #040D18;
+      --navy-900: #071526;
+      --navy-800: #0B1D38;
+      --navy-700: #102545;
+      --gold:     #C9A84C;
+      --gold-lt:  #E2C36A;
+      --muted:    #7A9BBF;
+      --border:   rgba(201,168,76,0.18);
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--navy-950); }
+
+    /* ─── Arabic typography ─── */
+    html[lang="ar"] body { font-family: 'Cairo', 'Poppins', sans-serif; }
+
+    /* Headings: Cairo at weight 900 is too heavy & lines overlap. Loosen them. */
+    html[lang="ar"] h1,
+    html[lang="ar"] h2,
+    html[lang="ar"] h3,
+    html[lang="ar"] h4 {
+      font-weight: 800 !important;
+      line-height: 1.55 !important;
+      letter-spacing: 0 !important;
+    }
+
+    /* The hero gradient line needs even more breathing room (it's clamp(2.4rem,6vw,4.2rem)) */
+    html[lang="ar"] .hero-h2 {
+      font-size: clamp(2rem, 5vw, 3.4rem) !important;
+      line-height: 1.7 !important;
+    }
+
+    /* Body paragraphs: Arabic needs more vertical rhythm */
+    html[lang="ar"] p { line-height: 2; }
+
+    /* Letter-spacing breaks Arabic letter-joining — remove it everywhere */
+    html[lang="ar"] .section-label { letter-spacing: 0 !important; font-weight: 700; }
+    html[lang="ar"] [style*="letter-spacing"] { letter-spacing: 0 !important; }
+
+    /* But preserve IEDC's English letter-spacing even in Arabic mode (it's an English abbreviation) */
+    html[lang="ar"] .brand-iedc { letter-spacing: 0.18em !important; }
+
+    .gold-text {
+      background: linear-gradient(120deg, var(--gold-lt) 0%, var(--gold) 55%, var(--gold-lt) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .section-label::before, .section-label::after {
+      content: ''; display: block; height: 1px; width: 36px;
+      background: var(--gold); opacity: 0.7;
+    }
+
+    /* Service card */
+    .svc-card {
+      background: var(--navy-800); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .svc-card:hover {
+      transform: translateY(-5px); border-color: rgba(201,168,76,0.45);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.2);
+    }
+    .svc-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.28);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem; font-size: 1.2rem; color: var(--gold);
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .gallery-item {
+      position: relative; overflow: hidden; border-radius: 12px;
+      aspect-ratio: 4 / 5; cursor: pointer;
+      background: var(--navy-800);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .gallery-item:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.4); }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease; display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item::after {
+      content: '\f00e'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(201,168,76,0.9); color: #040D18;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s ease;
+      font-size: 1.1rem;
+    }
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* Drawings */
+    .drawing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    .drawing-card {
+      background: #fff;
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+    .drawing-card:hover {
+      border-color: rgba(201,168,76,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+    .drawing-card-img {
+      aspect-ratio: 4 / 3;
+      background: #fafafa;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .drawing-card-img img {
+      width: 100%; height: 100%; object-fit: contain;
+      transition: transform 0.5s ease; display: block;
+    }
+    .drawing-card:hover .drawing-card-img img { transform: scale(1.05); }
+    .drawing-card-body {
+      padding: 1rem 1.2rem;
+      background: var(--navy-800);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(2, 6, 12, 0.96); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 92%; max-height: 88vh;
+      border-radius: 10px; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+      background: #fff;
+    }
+    .lightbox-close, .lightbox-nav {
+      position: absolute; background: rgba(201,168,76,0.95); color: #040D18;
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; transition: background 0.2s, transform 0.2s;
+    }
+    .lightbox-close:hover, .lightbox-nav:hover { background: var(--gold-lt); transform: scale(1.08); }
+    .lightbox-close { top: 24px; right: 24px; }
+    .lightbox-prev  { left: 24px;  top: 50%; transform: translateY(-50%); }
+    .lightbox-next  { right: 24px; top: 50%; transform: translateY(-50%); }
+    .lightbox-prev:hover { transform: translateY(-50%) scale(1.08); }
+    .lightbox-next:hover { transform: translateY(-50%) scale(1.08); }
+    .lightbox-caption {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      color: #fff; background: rgba(11,29,56,0.85); border: 1px solid var(--border);
+      padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.82rem;
+    }
+
+    /* Contact */
+    .contact-card {
+      display: flex; align-items: center; gap: 1.1rem;
+      background: var(--navy-800); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.3rem 1.5rem;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .contact-card:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-2px); }
+    .contact-icon {
+      width: 44px; height: 44px; flex-shrink: 0; border-radius: 9px;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.28);
+      display: flex; align-items: center; justify-content: center; color: var(--gold);
+    }
+
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
+      55%       { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
+    }
+    .btn-wa { animation: wa-pulse 2.6s infinite; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 1s ease both; }
+
+    .hidden-extra { display: none; }
+    .gallery-expanded .hidden-extra { display: block; }
+
+    /* ─── RTL overrides ─── */
+    [dir="rtl"] .hero-accent-left { left: auto !important; right: 0 !important; }
+    [dir="rtl"] .about-badge      { left: auto !important; right: 20px !important; }
+    [dir="rtl"] .about-offset-frame { right: auto !important; left: -14px !important; }
+    [dir="rtl"] .lightbox-close   { right: auto; left: 24px; }
+    [dir="rtl"] .lightbox-prev    { left: auto;  right: 24px; }
+    [dir="rtl"] .lightbox-next    { right: auto; left: 24px; }
+    /* Flip chevron arrows in RTL */
+    [dir="rtl"] .lightbox-prev i, [dir="rtl"] .lightbox-next i { transform: scaleX(-1); }
+    [dir="rtl"] .arrow-flip { transform: scaleX(-1); }
+
+    /* Language switcher button */
+    .lang-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold);
+      cursor: pointer; flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s, color 0.2s;
+      font-weight: 700; font-size: 0.8rem;
+      font-family: 'Poppins', 'Cairo', sans-serif;
+    }
+    .lang-btn:hover {
+      background: var(--gold); color: #040D18; transform: scale(1.08);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-white font-sans">
+
+  <!-- ══════════════════════════════════════════ HEADER ══════════════════════════════════════════ -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(4,13,24,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);">
+    <div style="height:3px;background:linear-gradient(to right,#1E3A6E,var(--gold),#8B1E1E);"></div>
+
+    <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+
+      <div class="flex items-center gap-4">
+        <div style="position:relative;flex-shrink:0;">
+          <div style="position:absolute;inset:-5px;background:rgba(201,168,76,0.18);border-radius:14px;filter:blur(10px);pointer-events:none;"></div>
+          <img src="images/logo.png" alt="Imperial Engineering Logo"
+               style="position:relative;width:48px;height:48px;object-fit:contain;border-radius:10px;background:var(--navy-800);border:1px solid rgba(201,168,76,0.32);padding:4px;"
+               onerror="this.style.display='none'" />
+        </div>
+        <h1 class="brand-iedc" style="font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:900;color:#fff;letter-spacing:0.18em;line-height:1;">
+          IEDC
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <nav class="hidden lg:flex items-center" style="gap:1.75rem;">
+          <a href="#about"    data-en="About"     data-ar="عن الشركة" style="font-size:0.8rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">About</a>
+          <a href="#services" data-en="Services"  data-ar="خدماتنا"  style="font-size:0.8rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">Services</a>
+          <a href="#projects" data-en="Projects"  data-ar="مشاريعنا"  style="font-size:0.8rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">Projects</a>
+          <a href="#drawings" data-en="Drawings"  data-ar="الرسومات"  style="font-size:0.8rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">Drawings</a>
+          <a href="#contact"  data-en="Contact"   data-ar="تواصل"    style="font-size:0.8rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+        </nav>
+
+        <!-- Language Switcher -->
+        <button id="langToggle" class="lang-btn" aria-label="Switch language" title="Switch language">
+          <span id="langLabel">ع</span>
+        </button>
+
+        <!-- WhatsApp circular -->
+        <a href="https://wa.me/966536498075" target="_blank" rel="noopener noreferrer"
+           class="btn-wa"
+           aria-label="Chat on WhatsApp"
+           style="display:inline-flex;align-items:center;justify-content:center;background:#16a34a;color:#fff;width:44px;height:44px;border-radius:50%;text-decoration:none;transition:background 0.2s,transform 0.2s;flex-shrink:0;"
+           onmouseover="this.style.background='#15803d';this.style.transform='scale(1.08)'"
+           onmouseout="this.style.background='#16a34a';this.style.transform='scale(1)'">
+          <i class="fab fa-whatsapp" style="font-size:1.4rem;"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════ HERO ══════════════════════════════════════════ -->
+  <section style="position:relative;overflow:hidden;min-height:88vh;display:flex;align-items:center;">
+    <div style="position:absolute;inset:0;background-image:url('Projects/project-01.jpg');background-size:cover;background-position:center;background-attachment:fixed;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,13,24,0.96) 0%,rgba(7,21,38,0.85) 55%,rgba(11,29,56,0.78) 100%);"></div>
+    <div class="hero-accent-left" style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,transparent 10%,var(--gold) 45%,transparent 90%);"></div>
+
+    <div class="relative w-full max-w-7xl mx-auto px-8 md:px-16 py-28 fade-up">
+      <div style="max-width:640px;">
+        <div class="section-label" data-en="Professional Steel Engineering" data-ar="هندسة الحديد الاحترافية">Professional Steel Engineering</div>
+        <h2 class="hero-h2" style="font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;line-height:1.08;color:#fff;margin-bottom:1.4rem;">
+          <span data-en="We Build the" data-ar="نبني">We Build the</span><br/>
+          <span class="gold-text" data-en="Steel Infrastructure" data-ar="البنية التحتية الحديدية">Steel Infrastructure</span><br/>
+          <span data-en="of Tomorrow" data-ar="للمستقبل">of Tomorrow</span>
+        </h2>
+        <p data-en="Trusted across Saudi Arabia for precision fabrication, structural installation, and industrial construction — where quality meets accountability."
+           data-ar="شريكك الموثوق في المملكة العربية السعودية لتصنيع الهياكل الحديدية، التركيب الإنشائي، والبناء الصناعي — حيث تلتقي الجودة بالمسؤولية."
+           style="font-size:1rem;line-height:1.9;color:var(--muted);margin-bottom:2.5rem;max-width:520px;">
+          Trusted across Saudi Arabia for precision fabrication, structural installation, and industrial construction — where quality meets accountability.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+          <a href="#contact"
+             style="display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:#040D18;font-weight:700;font-size:0.88rem;padding:0.9rem 1.8rem;border-radius:9px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='var(--gold-lt)';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.background='var(--gold)';this.style.transform='translateY(0)'">
+            <i class="fas fa-hard-hat"></i>
+            <span data-en="Request a Quote" data-ar="اطلب عرض سعر">Request a Quote</span>
+          </a>
+          <a href="#projects"
+             style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-weight:600;font-size:0.88rem;padding:0.9rem 1.8rem;border-radius:9px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='rgba(201,168,76,0.1)';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.background='transparent';this.style.transform='translateY(0)'">
+            <span data-en="View Our Work" data-ar="شاهد أعمالنا">View Our Work</span>
+            <i class="fas fa-arrow-right arrow-flip" style="font-size:0.7rem;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ STATS ══════════════════════════════════════════ -->
+  <div style="background:var(--navy-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <p style="font-size:2.4rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums;">10+</p>
+        <div style="height:1px;background:rgba(201,168,76,0.25);width:36px;margin:0.5rem auto;"></div>
+        <p data-en="Years Experience" data-ar="سنوات من الخبرة"
+           style="font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">Years Experience</p>
+      </div>
+      <div>
+        <p style="font-size:2.4rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums;">200+</p>
+        <div style="height:1px;background:rgba(201,168,76,0.25);width:36px;margin:0.5rem auto;"></div>
+        <p data-en="Projects Completed" data-ar="مشروع منجز"
+           style="font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">Projects Completed</p>
+      </div>
+      <div>
+        <p style="font-size:2.4rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums;">50+</p>
+        <div style="height:1px;background:rgba(201,168,76,0.25);width:36px;margin:0.5rem auto;"></div>
+        <p data-en="Skilled Engineers" data-ar="مهندس متخصص"
+           style="font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">Skilled Engineers</p>
+      </div>
+      <div>
+        <p style="font-size:2.4rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums;">100%</p>
+        <div style="height:1px;background:rgba(201,168,76,0.25);width:36px;margin:0.5rem auto;"></div>
+        <p data-en="Client Satisfaction" data-ar="رضا العملاء"
+           style="font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">Client Satisfaction</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════ ABOUT ══════════════════════════════════════════ -->
+  <section id="about" class="max-w-7xl mx-auto px-6 py-28 grid md:grid-cols-2 gap-20 items-center">
+    <div style="position:relative;">
+      <div class="about-offset-frame" style="position:absolute;bottom:-14px;right:-14px;width:100%;height:100%;border-radius:16px;border:1px solid rgba(201,168,76,0.2);pointer-events:none;"></div>
+      <img src="company/team.jpg" alt="Imperial Engineering Team"
+           style="position:relative;width:100%;height:420px;object-fit:cover;border-radius:16px;display:block;"
+           loading="lazy" />
+      <div class="about-badge" style="position:absolute;bottom:20px;left:20px;background:var(--navy-800);border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:1rem 1.4rem;">
+        <p data-en="Established" data-ar="تأسست"
+           style="font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Established</p>
+        <p data-en="Since 2014" data-ar="منذ 2014"
+           style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">Since 2014</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label" data-en="Who We Are" data-ar="من نحن">Who We Are</div>
+      <h3 style="font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:1.5rem;">
+        <span data-en="Engineering Excellence," data-ar="هندسة متفوقة،">Engineering Excellence,</span><br/>
+        <span class="gold-text" data-en="Built to Last" data-ar="مبنية لتدوم">Built to Last</span>
+      </h3>
+      <p data-en="Imperial Engineering &amp; Development Corporation is a leading provider of steel structure fabrication, installation, welding, and industrial construction across Saudi Arabia."
+         data-ar="شركة إمبريال للهندسة والتطوير هي شركة رائدة في تصنيع الهياكل الحديدية، التركيب، اللحام، والإنشاءات الصناعية في جميع أنحاء المملكة العربية السعودية."
+         style="font-size:0.92rem;line-height:1.95;color:var(--muted);margin-bottom:1.1rem;">
+        Imperial Engineering &amp; Development Corporation is a leading provider of steel structure fabrication, installation, welding, and industrial construction across Saudi Arabia.
+      </p>
+      <p data-en="Every project is delivered with an unwavering commitment to safety standards, material quality, and on-time execution — building long-term partnerships with every client."
+         data-ar="نُنجز كل مشروع بالتزام ثابت بمعايير السلامة، جودة المواد، والتنفيذ في الوقت المحدد — لنبني شراكات طويلة الأمد مع كل عميل."
+         style="font-size:0.92rem;line-height:1.95;color:var(--muted);margin-bottom:2rem;">
+        Every project is delivered with an unwavering commitment to safety standards, material quality, and on-time execution — building long-term partnerships with every client.
+      </p>
+      <ul style="list-style:none;padding:0;margin:0 0 2.2rem;display:flex;flex-direction:column;gap:0.8rem;">
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:#B4CAE0;">
+          <i class="fas fa-check-circle" style="color:var(--gold);font-size:0.9rem;"></i>
+          <span data-en="ISO-aligned engineering and fabrication standards" data-ar="معايير هندسة وتصنيع متوافقة مع ISO">ISO-aligned engineering and fabrication standards</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:#B4CAE0;">
+          <i class="fas fa-check-circle" style="color:var(--gold);font-size:0.9rem;"></i>
+          <span data-en="Certified structural welding team" data-ar="فريق لحام إنشائي معتمد">Certified structural welding team</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.85rem;color:#B4CAE0;">
+          <i class="fas fa-check-circle" style="color:var(--gold);font-size:0.9rem;"></i>
+          <span data-en="End-to-end project management &amp; site supervision" data-ar="إدارة كاملة للمشروع وإشراف على الموقع">End-to-end project management &amp; site supervision</span>
+        </li>
+      </ul>
+      <a href="#contact"
+         style="display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:#040D18;font-weight:700;font-size:0.85rem;padding:0.85rem 1.7rem;border-radius:9px;text-decoration:none;transition:all 0.2s;"
+         onmouseover="this.style.background='var(--gold-lt)';this.style.transform='translateY(-2px)'"
+         onmouseout="this.style.background='var(--gold)';this.style.transform='translateY(0)'">
+        <i class="fas fa-envelope"></i>
+        <span data-en="Contact Our Team" data-ar="تواصل مع فريقنا">Contact Our Team</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ SERVICES ══════════════════════════════════════════ -->
+  <section id="services" style="background:var(--navy-900);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="max-w-7xl mx-auto px-6 py-28">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <div class="section-label" data-en="What We Offer" data-ar="ما نقدمه" style="justify-content:center;">What We Offer</div>
+        <h3 data-en="Our Services" data-ar="خدماتنا" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;">Our Services</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fas fa-industry"></i></div>
+          <h4 data-en="Steel Structure Fabrication" data-ar="تصنيع الهياكل الحديدية" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Steel Structure Fabrication</h4>
+          <p data-en="Custom steel fabrication using precision engineering and certified materials for structures of any scale and complexity."
+             data-ar="تصنيع حديد مخصص بهندسة دقيقة ومواد معتمدة لهياكل بأي حجم وتعقيد."
+             style="font-size:0.85rem;line-height:1.85;color:var(--muted);">Custom steel fabrication using precision engineering and certified materials for structures of any scale and complexity.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fas fa-drafting-compass"></i></div>
+          <h4 data-en="Steel Installation" data-ar="تركيب الحديد" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Steel Installation</h4>
+          <p data-en="Professional on-site installation by certified technicians, following strict safety protocols and quality standards."
+             data-ar="تركيب احترافي في الموقع من قبل فنيين معتمدين، مع التزام صارم ببروتوكولات السلامة ومعايير الجودة."
+             style="font-size:0.85rem;line-height:1.85;color:var(--muted);">Professional on-site installation by certified technicians, following strict safety protocols and quality standards.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fas fa-fire-alt"></i></div>
+          <h4 data-en="Welding Works" data-ar="أعمال اللحام" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Welding Works</h4>
+          <p data-en="Structural and specialty welding using modern equipment for durable, code-compliant joints and repairs."
+             data-ar="لحام إنشائي ومتخصص باستخدام معدات حديثة لمفاصل وإصلاحات متينة متوافقة مع المعايير."
+             style="font-size:0.85rem;line-height:1.85;color:var(--muted);">Structural and specialty welding using modern equipment for durable, code-compliant joints and repairs.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fas fa-warehouse"></i></div>
+          <h4 data-en="Shed Construction" data-ar="إنشاء المستودعات" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Shed Construction</h4>
+          <p data-en="Industrial and commercial steel shed construction designed and built to meet your exact operational requirements."
+             data-ar="إنشاء مستودعات حديدية صناعية وتجارية مصممة ومبنية لتلبية متطلباتك التشغيلية الفعلية."
+             style="font-size:0.85rem;line-height:1.85;color:var(--muted);">Industrial and commercial steel shed construction designed and built to meet your exact operational requirements.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fas fa-tools"></i></div>
+          <h4 data-en="Maintenance Service" data-ar="خدمات الصيانة" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Maintenance Service</h4>
+          <p data-en="Scheduled preventive and corrective maintenance programs to maximise the lifespan of your steel assets."
+             data-ar="برامج صيانة وقائية وتصحيحية مجدولة لإطالة العمر الافتراضي لأصولك الحديدية."
+             style="font-size:0.85rem;line-height:1.85;color:var(--muted);">Scheduled preventive and corrective maintenance programs to maximise the lifespan of your steel assets.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fas fa-boxes"></i></div>
+          <h4 data-en="Material Supply" data-ar="توريد المواد" style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;">Material Supply</h4>
+          <p data-en="Premium steel materials and structural components sourced from certified, industry-trusted manufacturers."
+             data-ar="مواد حديدية ومكونات إنشائية ممتازة من مصنّعين معتمدين وموثوقين في الصناعة."
+             style="font-size:0.85rem;line-height:1.85;color:var(--muted);">Premium steel materials and structural components sourced from certified, industry-trusted manufacturers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ PROJECTS GALLERY ══════════════════════════════════════════ -->
+  <section id="projects" class="max-w-7xl mx-auto px-6 py-28">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <div class="section-label" data-en="Portfolio" data-ar="أعمالنا" style="justify-content:center;">Portfolio</div>
+      <h3 data-en="Our Projects" data-ar="مشاريعنا" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;margin-bottom:1rem;">Our Projects</h3>
+      <p data-en="A visual record of our steel structure fabrication and on-site installation work — captured directly from active project sites."
+         data-ar="سجل بصري لأعمال تصنيع الهياكل الحديدية والتركيب في الموقع — مأخوذة مباشرة من مواقع المشاريع النشطة."
+         style="font-size:0.9rem;line-height:1.85;color:var(--muted);max-width:540px;margin:0 auto;">
+        A visual record of our steel structure fabrication and on-site installation work — captured directly from active project sites.
+      </p>
+    </div>
+
+    <div id="gallery" class="gallery-grid"></div>
+
+    <div style="text-align:center;margin-top:3rem;">
+      <button id="toggleGallery"
+              style="display:inline-flex;align-items:center;gap:9px;background:transparent;border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-weight:600;font-size:0.85rem;padding:0.85rem 2rem;border-radius:9px;cursor:pointer;transition:all 0.2s;font-family:inherit;"
+              onmouseover="this.style.background='rgba(201,168,76,0.1)'"
+              onmouseout="this.style.background='transparent'">
+        <span id="toggleText">Show All Projects</span>
+        <i id="toggleIcon" class="fas fa-chevron-down" style="font-size:0.7rem;"></i>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ ERECTION DRAWINGS ══════════════════════════════════════════ -->
+  <section id="drawings" style="background:var(--navy-900);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="max-w-7xl mx-auto px-6 py-28">
+
+      <div style="text-align:center;margin-bottom:4rem;">
+        <div class="section-label" data-en="Engineering Documentation" data-ar="التوثيق الهندسي" style="justify-content:center;">Engineering Documentation</div>
+        <h3 data-en="Erection Drawings" data-ar="رسومات التركيب" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;margin-bottom:1rem;">Erection Drawings</h3>
+        <p data-en="Certified structural drawings illustrating column grids, beam dimensions, and foundation details used in our active projects."
+           data-ar="رسومات إنشائية معتمدة توضح شبكات الأعمدة، أبعاد الكمرات، وتفاصيل الأساسات المستخدمة في مشاريعنا النشطة."
+           style="font-size:0.9rem;line-height:1.85;color:var(--muted);max-width:580px;margin:0 auto;">
+          Certified structural drawings illustrating column grids, beam dimensions, and foundation details used in our active projects.
+        </p>
+      </div>
+
+      <div id="drawingGrid" class="drawing-grid"></div>
+
+      <!-- Trust strip -->
+      <div style="margin-top:4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;text-align:center;">
+        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(11,29,56,0.4);">
+          <i class="fas fa-ruler-combined" style="color:var(--gold);font-size:1.4rem;margin-bottom:0.7rem;"></i>
+          <p data-en="Precision Detailing" data-ar="تفاصيل دقيقة" style="font-size:0.78rem;color:#B4CAE0;font-weight:600;">Precision Detailing</p>
+        </div>
+        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(11,29,56,0.4);">
+          <i class="fas fa-shield-alt" style="color:var(--gold);font-size:1.4rem;margin-bottom:0.7rem;"></i>
+          <p data-en="Code Compliant" data-ar="متوافق مع الأكواد" style="font-size:0.78rem;color:#B4CAE0;font-weight:600;">Code Compliant</p>
+        </div>
+        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(11,29,56,0.4);">
+          <i class="fas fa-certificate" style="color:var(--gold);font-size:1.4rem;margin-bottom:0.7rem;"></i>
+          <p data-en="Engineer Certified" data-ar="معتمد هندسياً" style="font-size:0.78rem;color:#B4CAE0;font-weight:600;">Engineer Certified</p>
+        </div>
+        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(11,29,56,0.4);">
+          <i class="fas fa-stamp" style="color:var(--gold);font-size:1.4rem;margin-bottom:0.7rem;"></i>
+          <p data-en="Site-Approved" data-ar="معتمد ميدانياً" style="font-size:0.78rem;color:#B4CAE0;font-weight:600;">Site-Approved</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ CONTACT ══════════════════════════════════════════ -->
+  <section id="contact">
+    <div class="max-w-4xl mx-auto px-6 py-28">
+      <div style="text-align:center;margin-bottom:3.5rem;">
+        <div class="section-label" data-en="Reach Out" data-ar="تواصل معنا" style="justify-content:center;">Reach Out</div>
+        <h3 data-en="Get In Touch" data-ar="ابقَ على تواصل" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;margin-bottom:1rem;">Get In Touch</h3>
+        <p data-en="Our team is ready to discuss your project requirements and deliver a tailored engineering solution."
+           data-ar="فريقنا جاهز لمناقشة متطلبات مشروعك وتقديم حلول هندسية مصممة خصيصاً لك."
+           style="font-size:0.9rem;line-height:1.85;color:var(--muted);max-width:420px;margin:0 auto;">
+          Our team is ready to discuss your project requirements and deliver a tailored engineering solution.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 mb-12">
+        <a href="tel:+966536498075" class="contact-card">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <p data-en="Phone" data-ar="الهاتف" style="font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Phone</p>
+            <p style="font-weight:700;color:#fff;font-size:0.9rem;" dir="ltr">+966 536 498 075</p>
+          </div>
+        </a>
+        <a href="https://wa.me/966536498075" target="_blank" rel="noopener noreferrer" class="contact-card">
+          <div class="contact-icon" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.28);color:#4ade80;">
+            <i class="fab fa-whatsapp" style="font-size:1.1rem;"></i>
+          </div>
+          <div>
+            <p data-en="WhatsApp" data-ar="واتساب" style="font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">WhatsApp</p>
+            <p style="font-weight:700;color:#fff;font-size:0.9rem;" dir="ltr">+966 536 498 075</p>
+          </div>
+        </a>
+        <a href="mailto:Kamalhossain7031@gmail.com" class="contact-card">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <p data-en="Email" data-ar="البريد الإلكتروني" style="font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Email</p>
+            <p style="font-weight:700;color:#fff;font-size:0.85rem;" dir="ltr">Kamalhossain7031@gmail.com</p>
+          </div>
+        </a>
+        <div class="contact-card" style="cursor:default;">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <p data-en="Location" data-ar="الموقع" style="font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Location</p>
+            <p data-en="Al Marwah, Saudi Arabia" data-ar="المروة، المملكة العربية السعودية" style="font-weight:700;color:#fff;font-size:0.9rem;">Al Marwah, Saudi Arabia</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <a href="https://wa.me/966536498075" target="_blank" rel="noopener noreferrer" class="btn-wa"
+           style="display:inline-flex;align-items:center;gap:10px;background:#16a34a;color:#fff;font-weight:700;font-size:0.95rem;padding:1.1rem 2.8rem;border-radius:11px;text-decoration:none;transition:all 0.25s;"
+           onmouseover="this.style.background='#15803d';this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.background='#16a34a';this.style.transform='translateY(0)'">
+          <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i>
+          <span data-en="Start a Conversation" data-ar="ابدأ محادثة">Start a Conversation</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ FOOTER ══════════════════════════════════════════ -->
+  <footer style="background:#020C16;border-top:1px solid var(--border);">
+    <div class="max-w-7xl mx-auto px-6 py-9 flex flex-col md:flex-row justify-between items-center gap-5">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="images/logo.png" alt="Imperial Engineering"
+             style="width:34px;height:34px;object-fit:contain;border-radius:8px;background:var(--navy-800);border:1px solid rgba(201,168,76,0.22);padding:3px;"
+             onerror="this.style.display='none'" />
+        <p data-en="Imperial Engineering &amp; Development Corporation"
+           data-ar="شركة إمبريال للهندسة والتطوير"
+           style="font-size:0.8rem;font-weight:600;color:#fff;">Imperial Engineering &amp; Development Corporation</p>
+      </div>
+      <p data-en="© 2026 All Rights Reserved &nbsp;|&nbsp; Al Marwah, Saudi Arabia"
+         data-ar="© 2026 جميع الحقوق محفوظة &nbsp;|&nbsp; المروة، المملكة العربية السعودية"
+         style="font-size:0.72rem;color:#364E65;">© 2026 All Rights Reserved &nbsp;|&nbsp; Al Marwah, Saudi Arabia</p>
+      <a href="tel:+966536498075"
+         style="font-size:0.75rem;color:#364E65;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='#364E65'">
+        <i class="fas fa-phone"></i>
+        <span dir="ltr">+966 536 498 075</span>
+      </a>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════ LIGHTBOX ══════════════════════════════════════════ -->
+  <div id="lightbox" class="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)"  aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+    <img id="lightboxImg" src="" alt="" />
+    <div id="lightboxCaption" class="lightbox-caption"></div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════ SCRIPTS ══════════════════════════════════════════ -->
+  <script>
+    // ─── i18n strings for dynamic content ─────────────────────────
+    const i18n = {
+      en: {
+        projectCaption: n => `Project Site Photo · #${n}`,
+        page: n => `Page ${n}`,
+        showAll: n => `Show All ${n} Projects`,
+        showLess: 'Show Less',
+        drawingTitles: [
+          'Foundation & Column Grid Layout',
+          'Structural Plan View',
+          'Steel Detail Drawing',
+          'Cross Sections — Frame Elevations',
+          'Member Detail & Connection Plan',
+          'Connection Details Sheet',
+          'Framing Plan & Schedule',
+          'Roof Framing Plan',
+          'Roof Sheeting & Panel Layout',
+        ],
+      },
+      ar: {
+        projectCaption: n => `صورة من موقع العمل · #${n}`,
+        page: n => `صفحة ${n}`,
+        showAll: n => `عرض جميع المشاريع (${n})`,
+        showLess: 'عرض أقل',
+        drawingTitles: [
+          'مخطط الأساسات وشبكة الأعمدة',
+          'المخطط الإنشائي',
+          'رسم تفصيلي للحديد',
+          'المقاطع العرضية — ارتفاعات الإطارات',
+          'تفاصيل الأعضاء ومخطط الوصلات',
+          'تفاصيل الوصلات المسمارية',
+          'مخطط الهيكل وجدول الأعضاء',
+          'مخطط هيكل السقف',
+          'مخطط ألواح السقف والتكسية',
+        ],
+      },
+    };
+
+    let currentLang = localStorage.getItem('iedc_lang') || 'en';
+
+    // ─── Project images ───────────────────────────────────────────
+    const TOTAL_PROJECTS = 40;
+    const INITIAL_VISIBLE = 12;
+    const galleryEl = document.getElementById('gallery');
+    const projects = [];
+    for (let i = 1; i <= TOTAL_PROJECTS; i++) {
+      const num = String(i).padStart(2, '0');
+      projects.push({ src: `Projects/project-${num}.jpg`, num });
+    }
+    projects.forEach((p, idx) => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item' + (idx >= INITIAL_VISIBLE ? ' hidden-extra' : '');
+      div.innerHTML = `<img src="${p.src}" alt="Project ${p.num}" loading="lazy" />`;
+      div.onclick = () => openLightbox('project', idx);
+      galleryEl.appendChild(div);
+    });
+
+    // ─── Drawings ─────────────────────────────────────────────────
+    const drawings = [
+      { src: 'drawings/drawing-nariman-p1.png',      project: 'Nariman Project',  page: 1, titleIdx: 0 },
+      { src: 'drawings/drawing-nariman-p2.png',      project: 'Nariman Project',  page: 2, titleIdx: 1 },
+      { src: 'drawings/drawing-jdh2-p1.png',         project: 'JDH2 / HMA-TS9',   page: 1, titleIdx: 2 },
+      { src: 'drawings/drawing-kw22814-a1r1-p1.png', project: 'KW-22814 A1-R1',   page: 1, titleIdx: 3 },
+      { src: 'drawings/drawing-kw22814-a1r1-p2.png', project: 'KW-22814 A1-R1',   page: 2, titleIdx: 4 },
+      { src: 'drawings/drawing-kw22814a1-p1.png',    project: 'KW-22814 A1',      page: 1, titleIdx: 5 },
+      { src: 'drawings/drawing-kw22814a1-p2.png',    project: 'KW-22814 A1',      page: 2, titleIdx: 6 },
+      { src: 'drawings/drawing-roof-framing.png',    project: 'KW-22814 A1-R1',   page: 3, titleIdx: 7 },
+      { src: 'drawings/drawing-roof-sheeting.png',   project: 'KW-22814 A1-R1',   page: 4, titleIdx: 8 },
+    ];
+    const drawingGrid = document.getElementById('drawingGrid');
+    drawings.forEach((d, idx) => {
+      const card = document.createElement('div');
+      card.className = 'drawing-card';
+      card.dataset.idx = idx;
+      card.innerHTML = `
+        <div class="drawing-card-img"><img src="${d.src}" alt="" loading="lazy" /></div>
+        <div class="drawing-card-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <p class="d-project" style="font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">${d.project}</p>
+            <p class="d-page" style="font-size:0.62rem;color:var(--muted);"></p>
+          </div>
+          <p class="d-title" style="font-size:0.92rem;font-weight:600;color:#fff;line-height:1.4;"></p>
+        </div>
+      `;
+      card.onclick = () => openLightbox('drawing', idx);
+      drawingGrid.appendChild(card);
+    });
+
+    // ─── Lightbox ─────────────────────────────────────────────────
+    const lb        = document.getElementById('lightbox');
+    const lbImg     = document.getElementById('lightboxImg');
+    const lbCaption = document.getElementById('lightboxCaption');
+    let lbList = [], lbIndex = 0, lbKind = 'project';
+
+    function openLightbox(kind, idx) {
+      lbKind = kind;
+      lbIndex = idx;
+      buildLbList();
+      showLightbox();
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function buildLbList() {
+      const t = i18n[currentLang];
+      if (lbKind === 'project') {
+        lbList = projects.map(p => ({ src: p.src, caption: t.projectCaption(p.num) }));
+      } else {
+        lbList = drawings.map(d => ({ src: d.src, caption: `${d.project} — ${t.drawingTitles[d.titleIdx]}` }));
+      }
+    }
+    function closeLightbox() {
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function navLightbox(dir) {
+      lbIndex = (lbIndex + dir + lbList.length) % lbList.length;
+      showLightbox();
+    }
+    function showLightbox() {
+      const item = lbList[lbIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.caption;
+      lbCaption.textContent = `${item.caption}  ·  ${lbIndex + 1} / ${lbList.length}`;
+    }
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  navLightbox(currentLang === 'ar' ? 1 : -1);
+      if (e.key === 'ArrowRight') navLightbox(currentLang === 'ar' ? -1 : 1);
+    });
+
+    // ─── Show More / Show Less ────────────────────────────────────
+    const toggleBtn  = document.getElementById('toggleGallery');
+    const toggleText = document.getElementById('toggleText');
+    const toggleIcon = document.getElementById('toggleIcon');
+    let expanded = false;
+    toggleBtn.onclick = () => {
+      expanded = !expanded;
+      galleryEl.classList.toggle('gallery-expanded', expanded);
+      updateToggleLabel();
+      if (!expanded) document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+    };
+    function updateToggleLabel() {
+      const t = i18n[currentLang];
+      toggleText.textContent = expanded ? t.showLess : t.showAll(TOTAL_PROJECTS);
+      toggleIcon.className   = expanded ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+      toggleIcon.style.fontSize = '0.7rem';
+    }
+
+    // ─── Drawing card labels (lang-aware) ─────────────────────────
+    function refreshDrawingLabels() {
+      const t = i18n[currentLang];
+      document.querySelectorAll('#drawingGrid .drawing-card').forEach(card => {
+        const idx = +card.dataset.idx;
+        const d = drawings[idx];
+        card.querySelector('.d-page').textContent  = t.page(d.page);
+        card.querySelector('.d-title').textContent = t.drawingTitles[d.titleIdx];
+      });
+    }
+
+    // ─── Language toggle ──────────────────────────────────────────
+    const langToggle = document.getElementById('langToggle');
+    const langLabel  = document.getElementById('langLabel');
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('iedc_lang', lang);
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = (lang === 'ar') ? 'rtl' : 'ltr';
+      langLabel.textContent = (lang === 'ar') ? 'EN' : 'ع';
+      langToggle.setAttribute('title', lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية');
+
+      // Swap all elements with data-en / data-ar
+      document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text != null) el.innerHTML = text;
+      });
+
+      updateToggleLabel();
+      refreshDrawingLabels();
+      buildLbList();
+    }
+
+    langToggle.addEventListener('click', () => {
+      applyLang(currentLang === 'en' ? 'ar' : 'en');
+    });
+
+    // Initial apply
+    applyLang(currentLang);
+  </script>
+
+</body>
+</html>
